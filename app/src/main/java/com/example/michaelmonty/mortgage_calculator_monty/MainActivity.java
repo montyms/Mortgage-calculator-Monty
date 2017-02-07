@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mortSumButton;
     private Button paySumButton;
+    private int x = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
