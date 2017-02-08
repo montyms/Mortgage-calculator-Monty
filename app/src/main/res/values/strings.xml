@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Mortgage-calculator-Monty</string>
+    <string name="Loan_Value">Loan Value: </string>
+    <string name="Home_Value">Home Value: </string>
+    <string name="Loan_Term">Loan Term: </string>
+    <string name="Percentage_Rate">Interest Rate: </string>
+    <string name="Start_Date">Start Date: </string>
+    <string name="Property_Tax">Property Tax: </string>
+    <string name="Insurance_Per_Year">Insurance Per Year: </string>
+    <string name="Monthly_HOA">Monthly HOA: </string>
+    <string name="Mortgage_Sum">Mortgage Sum</string>
+    <string name="Payment_Sum">Payment Sum</string>
+
+
+
 </resources>
