@@ -10,19 +10,7 @@
     <string name="Monthly_HOA">Monthly HOA: </string>
     <string name="Mortgage_Sum">Mortgage Sum</string>
     <string name="Payment_Sum">Payment Sum</string>
-
-    <string name="totalLoanAmount">Total Cost of Loan with Interest: </string>
-    <string name="totalInterestAmount">Total Cost of Interest: </string>
-    <string name="yearlyTaxAmount">Yearly Property Tax: </string>
-    <string name="totalPaidAmount">Total Paid: </string>
-    <string name="totalTaxAmount">Total Property Tax Paid: </string>
-    <string name="totalHOAAmount">Total HOA Fee Paid: </string>
-    <string name="monthlyMortAmount">Monthly Mortgage Paid: </string>
-    <string name="monthlyHOAAmount">Monthly HOA Fee Paid: </string>
-    <string name="monthlyTotalAmount">Total Amount Paid: </string>
-
-    <string name="summaryMessage">Your Summary to Date</string>
-    <string name="monthlySummaryMessage">Your Monthly Payment Summary</string>
+    
 
 
 

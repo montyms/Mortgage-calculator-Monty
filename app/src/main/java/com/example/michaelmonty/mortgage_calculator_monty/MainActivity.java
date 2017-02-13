@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         in_Per_Year_Edit = (EditText)findViewById(R.id.inPerYear);
         h_O_A_Edit = (EditText)findViewById(R.id.hOA);
 
+        result_Feild.setText("Summary");
+
         home_Value_Edit.setText(home_Value.toString());
         loan_Amount_Edit.setText(loan_Amount.toString());
         interest_Rate_Edit.setText(interest_Rate.toString());
