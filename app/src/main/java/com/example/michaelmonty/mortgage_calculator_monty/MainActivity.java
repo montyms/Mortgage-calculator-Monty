@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mort_SumButton;
     private Button pay_SumButton;
-    private View result_Feild;
+    private TextView result_Feild;
     private TextView errorTextView;
     private boolean errorVisible = false;
 
@@ -69,16 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if(allValsFilled() == true){
-                    Intent mortgageIntent = new Intent(MainActivity.this, Mortgage_Sum_Activity.class);
-                    String[] calculateResults = performCal();
-                    mortgageIntent.putExtra("total_Loan", calculateResults[0]);
-                    mortgageIntent.putExtra("total_Paid", calculateResults[1]);
-                    mortgageIntent.putExtra("total_Interest", calculateResults[2]);
-                    mortgageIntent.putExtra("taxes", calculateResults[5]);
-                    mortgageIntent.putExtra("taxes_paid", calculateResults[6]);
-                    mortgageIntent.putExtra("HOA_paid", calculateResults[7]);
-
-                    startActivity(mortgageIntent);
+                    result_Feild.setText(home_Value-loan_Amount-interest_Rate-in_Per_Year-property_Tax-h_O_A-term_Date+start_Date.toString());
                 }
                 else{
                     errorTextView.setVisibility(View.VISIBLE);
@@ -91,13 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if(allValsFilled() == true){
-                    Intent paymentIntent = new Intent(MainActivity.this, payment_sum_Activity.class);
-                    String[] calculateResults = performCal();
-                    paymentIntent.putExtra("monthly_Mortgage", calculateResults[3]);
-                    paymentIntent.putExtra("montyly_HOA", h_O_A.toString());
-                    paymentIntent.putExtra("total_monthly_payment", calculateResults[4]);
-
-                    startActivity(paymentIntent);
+                    result_Feild.setText(home_Value+loan_Amount+interest_Rate+in_Per_Year+property_Tax+h_O_A+term_Date+start_Date.toString());
                 }
                 else{
                     errorTextView.setVisibility(View.VISIBLE);
