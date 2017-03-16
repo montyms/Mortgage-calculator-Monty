@@ -10,6 +10,8 @@ xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.michaelmonty.mortgage_calculator_monty.MainActivity"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,22 +20,47 @@ xmlns:tools="http://schemas.android.com/tools"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Home_Value" />
+            android:text="@string/home_val"/>
         <EditText
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/Home_Value"/>
-
+            android:id="@+id/textEditHVal"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Loan_Value" />
+            android:text="@string/loan_val" />
         <EditText
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/Loan_Value"/>
+            android:id="@+id/textEditLVal"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insurance" />
+        <EditText
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:id="@+id/textEditInsurance"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interest"/>
+        <EditText
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:id="@+id/textEditInterest"/>
 
     </LinearLayout>
 
@@ -45,50 +72,23 @@ xmlns:tools="http://schemas.android.com/tools"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Percentage_Rate" />
-        <EditText
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:id="@+id/interestRate"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loan Term: "/>
+            android:text="@string/start" />
         <EditText
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:id="@+id/termDate"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:id="@+id/textEditStartYear"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Start_Date"/>
-        <EditText
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/startDate"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Property_Tax"/>
+            android:text="@string/term" />
         <EditText
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/propertyTax"/>
+            android:id="@+id/textEditTerm"/>
+
 
     </LinearLayout>
 
@@ -100,56 +100,65 @@ xmlns:tools="http://schemas.android.com/tools"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Insurance_Per_Year"/>
+            android:text="@string/pro_tax" />
         <EditText
-            android:layout_width="70dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/inPerYear"/>
-
+            android:id="@+id/textEditPropTax"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Monthly_HOA"/>
+            android:text="@string/hoa" />
         <EditText
-            android:layout_width="85dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/hOA"/>
+            android:id="@+id/textEditHOA"/>
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="bottom">
 
-        <TextView
+        <Button
+            android:text="@string/mortButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="result"
-            android:id="@+id/resultField"
-            android:textSize="25sp"/>
-    </LinearLayout>
+            android:id="@+id/mortSumm" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="bottom">
+
+        <Button
+            android:text="@string/payButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/paySumm" />
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center">
 
-        <Button
-            android:text="@string/Mortgage_Sum"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mortSumButton"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Payment_Sum"
-            android:layout_gravity="center"
-            android:id="@+id/paySumButton"/>
+            android:visibility="invisible"
+            android:text="@string/errorMessage"
+            android:id="@+id/errorText"/>
     </LinearLayout>
 
 

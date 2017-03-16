@@ -1,17 +1,26 @@
 <resources>
-    <string name="app_name">Mortgage-calculator-Monty</string>
-    <string name="Loan_Value">Loan Value: </string>
-    <string name="Home_Value">Home Value: </string>
-    <string name="Loan_Term">Loan Term: </string>
-    <string name="Percentage_Rate">Interest Rate: </string>
-    <string name="Start_Date">Start Date: </string>
-    <string name="Property_Tax">Property Tax: </string>
-    <string name="Insurance_Per_Year">Insurance Per Year: </string>
-    <string name="Monthly_HOA">Monthly HOA: </string>
-    <string name="Mortgage_Sum">Mortgage Sum</string>
-    <string name="Payment_Sum">Payment Sum</string>
-    
-
-
+    <string name="app_name">Mortgage-calculator-monty</string>
+    <string name="errorMessage">Please enter a value into every field.</string>
+    <string name="summaryMessage">Your Summary to Date</string>
+    <string name="monthlySummaryMessage">Your Monthly Payment Summary</string>
+    <string name="home_val">Home Value: </string>
+    <string name="loan_val">Loan Amount: </string>
+    <string name="interest">Interest Rate: </string>
+    <string name="term">Loan Term: </string>
+    <string name="start">Start Year: </string>
+    <string name="pro_tax">Property Tax: </string>
+    <string name="insurance">Year Interest: </string>
+    <string name="hoa">Monthly HOA: </string>
+    <string name="payButton">Payment Sum</string>
+    <string name="mortButton">Mortgage Sum</string>
+    <string name="totalLoanAmount">Total Cost of Loan with Interest: </string>
+    <string name="totalInterestAmount">Total Cost of Interest: </string>
+    <string name="yearlyTaxAmount">Yearly Property Tax: </string>
+    <string name="totalPaidAmount">Total Paid: </string>
+    <string name="totalTaxAmount">Total Property Tax Paid: </string>
+    <string name="totalHOAAmount">Total HOA Fee Paid: </string>
+    <string name="monthlyMortAmount">Monthly Mortgage Paid: </string>
+    <string name="monthlyHOAAmount">Monthly HOA Fee Paid: </string>
+    <string name="monthlyTotalAmount">Total Amount Paid: </string>
 
 </resources>

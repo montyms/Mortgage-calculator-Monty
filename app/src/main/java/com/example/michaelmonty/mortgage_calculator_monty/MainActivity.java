@@ -14,64 +14,94 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mort_SumButton;
-    private Button pay_SumButton;
-    private TextView result_Feild;
-    private TextView errorTextView;
+    private Float homeVal= new Float(0);
+    private Float loanAmtVal= new Float(0);
+    private Float loanTermVal= new Float(0);
+    private Float insPerVal= new Float(0);
+    private Float intRatePerc= new Float(0);
+    private Float startYearVal = new Float(0);
+    private Float propTaxPerc= new Float(0);
+    private Float monthlyHOAVal= new Float(0);
+
     private boolean errorVisible = false;
 
-    private Float interest_Rate = new Float(0);
-    private Float property_Tax = new Float(0);
-    private Float start_Date = new Float(0);
-    private Float term_Date = new Float(0);
-    private Float home_Value = new Float(0);
-    private Float loan_Amount = new Float(0);
-    private Float in_Per_Year = new Float(0);
-    private Float h_O_A = new Float(0);
-    private EditText interest_Rate_Edit;
-    private EditText property_Tax_Edit;
-    private EditText start_Date_Edit;
-    private EditText term_Date_Edit;
-    private EditText home_Value_Edit;
-    private EditText loan_Amount_Edit;
-    private EditText in_Per_Year_Edit;
-    private EditText h_O_A_Edit;
+    private EditText homeValEdit;
+    private EditText loanAmtEdit;
+    private EditText loanTermEdit;
+    private EditText insPerEdit;
+    private EditText intRateEdit;
+    private EditText startYearEdit;
+    private EditText propTaxEdit;
+    private EditText monthlyHOAEdit;
+
+    private Button mortSummButton;
+    private Button paySummButton;
+
+    private TextView errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mort_SumButton = (Button)findViewById(R.id.mortSumButton);
-        pay_SumButton = (Button)findViewById(R.id.paySumButton);
-        result_Feild = (TextView)findViewById(R.id.resultField);
+        homeValEdit = (EditText)findViewById(R.id.textEditHVal);
+        loanAmtEdit = (EditText)findViewById(R.id.textEditLVal);
+        loanTermEdit = (EditText)findViewById(R.id.textEditTerm);
+        insPerEdit = (EditText)findViewById(R.id.textEditInsurance);
+        intRateEdit = (EditText)findViewById(R.id.textEditInterest);
+        startYearEdit = (EditText)findViewById(R.id.textEditStartYear);
+        propTaxEdit = (EditText)findViewById(R.id.textEditPropTax);
+        monthlyHOAEdit = (EditText)findViewById(R.id.textEditHOA);
 
-        home_Value_Edit = (EditText)findViewById(R.id.Home_Value);
-        loan_Amount_Edit = (EditText)findViewById(R.id.Loan_Value);
-        interest_Rate_Edit = (EditText)findViewById(R.id.interestRate);
-        start_Date_Edit = (EditText)findViewById(R.id.startDate);
-        term_Date_Edit = (EditText)findViewById(R.id.termDate);
-        property_Tax_Edit = (EditText)findViewById(R.id.propertyTax);
-        in_Per_Year_Edit = (EditText)findViewById(R.id.inPerYear);
-        h_O_A_Edit = (EditText)findViewById(R.id.hOA);
+        mortSummButton = (Button)findViewById(R.id.mortSumm);
+        paySummButton = (Button)findViewById(R.id.paySumm);
 
-        result_Feild.setText("Summary");
+        errorTextView = (TextView)findViewById(R.id.errorText);
 
-        home_Value_Edit.setText(home_Value.toString());
-        loan_Amount_Edit.setText(loan_Amount.toString());
-        interest_Rate_Edit.setText(interest_Rate.toString());
-        start_Date_Edit.setText(start_Date.toString());
-        term_Date_Edit.setText(term_Date.toString());
-        property_Tax_Edit.setText(property_Tax.toString());
-        in_Per_Year_Edit.setText(in_Per_Year.toString());
-        h_O_A_Edit.setText(h_O_A.toString());
+        homeValEdit.setText(homeVal.toString());
+        loanAmtEdit.setText(loanAmtVal.toString());
+        loanTermEdit.setText(loanTermVal.toString());
+        insPerEdit.setText(insPerVal.toString());
+        intRateEdit.setText(intRatePerc.toString());
+        startYearEdit.setText(startYearVal.toString());
+        propTaxEdit.setText(propTaxPerc.toString());
+        monthlyHOAEdit.setText(monthlyHOAVal.toString());
 
 
-        mort_SumButton.setOnClickListener(new View.OnClickListener(){
+
+        mortSummButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 if(allValsFilled() == true){
-                    result_Feild.setText(home_Value-loan_Amount-interest_Rate-in_Per_Year-property_Tax-h_O_A-term_Date+start_Date.toString());
+                    Intent mortIntent = new Intent(MainActivity.this,mortSumActivity.class);
+                    String[] calcValues = performCalcs();
+                    mortIntent.putExtra("totalLoan", calcValues[0]);
+                    mortIntent.putExtra("totalInterest", calcValues[1]);
+                    mortIntent.putExtra("yearlyTax", calcValues[2]);
+                    mortIntent.putExtra("totalPaid", calcValues[5]);
+                    mortIntent.putExtra("taxesPaid", calcValues[6]);
+                    mortIntent.putExtra("HOAPaid", calcValues[7]);
+
+                    startActivity(mortIntent);
+
+                }
+                else{
+                    errorTextView.setVisibility(View.VISIBLE);
+                    errorVisible = true;
+                }
+            }
+        });
+        paySummButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(allValsFilled() == true){
+                    Intent payIntent = new Intent(MainActivity.this,paySumActivity.class);
+                    String[] calcValues = performCalcs();
+                    payIntent.putExtra("monthlyMort", calcValues[3]);
+                    payIntent.putExtra("monthlyHOA",monthlyHOAVal.toString());
+                    payIntent.putExtra("totalMonthlyPayment", calcValues[4]);
+
+                    startActivity(payIntent);
                 }
                 else{
                     errorTextView.setVisibility(View.VISIBLE);
@@ -80,144 +110,133 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        pay_SumButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(allValsFilled() == true){
-                    result_Feild.setText(home_Value+loan_Amount+interest_Rate+in_Per_Year+property_Tax+h_O_A+term_Date+start_Date.toString());
-                }
-                else{
-                    errorTextView.setVisibility(View.VISIBLE);
-                    errorVisible =true;
-                }
-            }
-        });
-
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         getVals();
 
-        outState.putFloat("saveHomeVal", home_Value);
-        outState.putFloat("saveLoanVal", loan_Amount);
-        outState.putFloat("saveInterestRate", interest_Rate);
-        outState.putFloat("savePropertyTax", property_Tax);
-        outState.putFloat("saveLoanTerm", term_Date);
-        outState.putFloat("saveLoanStart", start_Date);
-        outState.putFloat("saveIntPerYear", in_Per_Year);
-        outState.putFloat("saveHOA", h_O_A);
-        outState.putBoolean("errorVisible", errorVisible);
+        outState.putFloat("homeValSave",homeVal);
+        outState.putFloat("loanAmtSave",loanAmtVal);
+        outState.putFloat("loanTermSave",loanTermVal);
+        outState.putFloat("insPerSave",insPerVal);
+        outState.putFloat("intRateSave",intRatePerc);
+        outState.putFloat("startDateSave", startYearVal);
+        outState.putFloat("propTaxSave",propTaxPerc);
+        outState.putFloat("monthlyHOASave",monthlyHOAVal);
+        outState.putBoolean("errorVisible",errorVisible);
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
 
-        home_Value = savedInstanceState.getFloat("saveHomeVal");
-        loan_Amount = savedInstanceState.getFloat("saveLoanVal");
-        interest_Rate = savedInstanceState.getFloat("saveInterestRate");
-        property_Tax = savedInstanceState.getFloat("savePropertyTax");
-        term_Date = savedInstanceState.getFloat("saveLoanTerm");
-        start_Date = savedInstanceState.getFloat("saveLoanStart");
-        in_Per_Year = savedInstanceState.getFloat("saveIntPerYear");
-        h_O_A = savedInstanceState.getFloat("saveHOA");
+        homeVal = savedInstanceState.getFloat("homeValSave");
+        loanAmtVal = savedInstanceState.getFloat("loanAmtSave");
+        loanTermVal = savedInstanceState.getFloat("loanTermSave");
+        insPerVal = savedInstanceState.getFloat("insPerSave");
+        intRatePerc = savedInstanceState.getFloat("intRateSave");
+        startYearVal = savedInstanceState.getFloat("startDateSave");
+        propTaxPerc = savedInstanceState.getFloat("propTaxSave");
+        monthlyHOAVal = savedInstanceState.getFloat("monthlyHOASave");
         errorVisible = savedInstanceState.getBoolean("errorVisible");
 
         getVals();
 
-        home_Value_Edit.setText(home_Value.toString());
-        loan_Amount_Edit.setText(loan_Amount.toString());
-        interest_Rate_Edit.setText(interest_Rate.toString());
-        property_Tax_Edit.setText(property_Tax.toString());
-        term_Date_Edit.setText(term_Date.toString());
-        start_Date_Edit.setText(start_Date.toString());
-        in_Per_Year_Edit.setText(in_Per_Year.toString());
-        h_O_A_Edit.setText(h_O_A.toString());
+        homeValEdit.setText(homeVal.toString());
+        loanAmtEdit.setText(loanAmtVal.toString());
+        loanTermEdit.setText(loanTermVal.toString());
+        insPerEdit.setText(insPerVal.toString());
+        intRateEdit.setText(intRatePerc.toString());
+        startYearEdit.setText(startYearVal.toString());
+        propTaxEdit.setText(propTaxPerc.toString());
+        monthlyHOAEdit.setText(monthlyHOAVal.toString());
 
-        if (errorVisible)
+        if(errorVisible)
             errorTextView.setVisibility(View.VISIBLE);
+
     }
 
     private boolean allValsFilled(){
-        boolean returnVal = true;
-        if (home_Value_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (loan_Amount_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (interest_Rate_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (property_Tax_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (term_Date_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (start_Date_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (in_Per_Year_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        if (h_O_A_Edit.getText().toString().equals(0.0))
-            returnVal = false;
-        return returnVal;
+        boolean rtrnVal = true;
+        if(homeValEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(loanAmtEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(loanTermEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(insPerEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(intRateEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(startYearEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(propTaxEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        if(monthlyHOAEdit.getText().toString().equals("0.0"))
+            rtrnVal = false;
+        return rtrnVal;
     }
 
-    private String[] performCal(){
-        String[] returnVal = new String[8];
+    private String[] performCalcs(){
+        String[] rtrnVal = new String[8];
         getVals();
 
-        Double total_loan_cost = loan_Amount.doubleValue();
-        Double total_interest;
-        Double current_paid = 0.0;
-        Double month_mort_pay;
-        Double total_month_pay;
+        Double totalLoanCost = loanAmtVal.doubleValue();
+        Double totalInterest;
+        Double paidToDate = 0.00;
+        Double monthlyMortPayment;
+        Double totalMonthlyPayment;
         Double yearlyTax;
-        Double taxes_paid;
+        Double taxesPaid;
         Double HOAPaid;
         Calendar cal = Calendar.getInstance();
-        int numYears = cal.get(Calendar.YEAR) - start_Date.intValue();
+        int numYears = cal.get(Calendar.YEAR)-startYearVal.intValue();
         int month = cal.get(Calendar.MONTH);
 
-        for (int i = 0; i < term_Date.intValue(); i++){
-            total_loan_cost = total_loan_cost + total_loan_cost*(interest_Rate.doubleValue()/100);
-            total_loan_cost = total_loan_cost.doubleValue();
+        for(int i = 0; i<loanTermVal.intValue();i++){
+            totalLoanCost = totalLoanCost + totalLoanCost*(intRatePerc.doubleValue()/100);
+            totalLoanCost = totalLoanCost.doubleValue();
         }
+        rtrnVal[0] = totalLoanCost.toString();
 
-        returnVal[0] = total_loan_cost.toString();
+        totalInterest = totalLoanCost - loanAmtVal.doubleValue();
+        rtrnVal[1] = totalInterest.toString();
 
-        total_interest = total_loan_cost - loan_Amount.doubleValue();
-        returnVal[1] = total_interest.toString();
+        yearlyTax = homeVal*propTaxPerc.doubleValue()/100;
+        rtrnVal[2] = yearlyTax.toString();
 
-        yearlyTax = home_Value*property_Tax.doubleValue()/100;
-        returnVal[2] = yearlyTax.toString();
+        monthlyMortPayment = totalLoanCost/loanTermVal.doubleValue()/12;
+        rtrnVal[3] = monthlyMortPayment.toString();
 
-        month_mort_pay = total_loan_cost/term_Date.doubleValue()/100;
-        returnVal[3] = month_mort_pay.toString();
+        totalMonthlyPayment = monthlyMortPayment + monthlyHOAVal.doubleValue()
+                +(yearlyTax/12)+(insPerVal.doubleValue()/12);
+        rtrnVal[4] = totalMonthlyPayment.toString();
 
-        total_month_pay = month_mort_pay + h_O_A.doubleValue() + (yearlyTax/12) + (in_Per_Year.doubleValue()/12);
-        returnVal[4] = total_month_pay.toString();
+        paidToDate = totalMonthlyPayment*numYears*12+(totalMonthlyPayment*month);
+        rtrnVal[5] = paidToDate.toString();
 
-        current_paid = total_month_pay*12*numYears + (total_month_pay*month);
-        returnVal[5] = current_paid.toString();
+        taxesPaid = yearlyTax*numYears;
+        rtrnVal[6] = taxesPaid.toString();
 
-        taxes_paid = yearlyTax*numYears;
-        returnVal[6] = taxes_paid.toString();
+        HOAPaid = monthlyHOAVal.doubleValue()*numYears*12+(monthlyHOAVal.doubleValue()*month);
+        rtrnVal[7] = HOAPaid.toString();
 
-        HOAPaid = h_O_A.doubleValue()*12*numYears + (h_O_A.doubleValue()*month);
-        returnVal[7] = HOAPaid.toString();
 
-        return returnVal;
+        return rtrnVal;
     }
 
     private void getVals(){
-        home_Value = Float.parseFloat(home_Value_Edit.getText().toString());
-        loan_Amount = Float.parseFloat(loan_Amount_Edit.getText().toString());
-        interest_Rate = Float.parseFloat(interest_Rate_Edit.getText().toString());
-        property_Tax = Float.parseFloat(property_Tax_Edit.getText().toString());
-        start_Date = Float.parseFloat(start_Date_Edit.getText().toString());
-        term_Date = Float.parseFloat(term_Date_Edit.getText().toString());
-        in_Per_Year = Float.parseFloat(in_Per_Year_Edit.getText().toString());
-        h_O_A = Float.parseFloat(h_O_A_Edit.getText().toString());
+        homeVal = Float.parseFloat(homeValEdit.getText().toString());
+        loanAmtVal = Float.parseFloat(loanAmtEdit.getText().toString());
+        loanTermVal = Float.parseFloat(loanTermEdit.getText().toString());
+        insPerVal = Float.parseFloat(insPerEdit.getText().toString());
+        intRatePerc = Float.parseFloat(intRateEdit.getText().toString());
+        startYearVal = Float.parseFloat(startYearEdit.getText().toString());
+        propTaxPerc = Float.parseFloat(propTaxEdit.getText().toString());
+        monthlyHOAVal = Float.parseFloat(monthlyHOAEdit.getText().toString());
     }
 
 
