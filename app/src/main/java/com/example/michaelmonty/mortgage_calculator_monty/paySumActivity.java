@@ -10,6 +10,7 @@ public class paySumActivity extends AppCompatActivity {
     private TextView monthlyMortTextView;
     private TextView monthlyHOATextView;
     private TextView monthlyTotalTextView;
+    //with pictures
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
