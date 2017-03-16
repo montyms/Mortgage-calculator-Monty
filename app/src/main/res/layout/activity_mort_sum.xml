@@ -11,20 +11,6 @@
     tools:context="com.example.michaelmonty.mortgage_calculator_monty.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/summaryMessage"
-            android:textSize="22sp"
-            android:id="@+id/summaryText"/>
-
-    </LinearLayout>
 
     <View
         android:layout_marginTop="12dp"
